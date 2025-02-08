@@ -360,10 +360,6 @@ public class DiscordHtmlTranscripts {
         for (Message message : messages.stream()
                 .sorted(Comparator.comparing(ISnowflake::getTimeCreated))
                 .toList()) {
-
-            if (message.getAuthor().isBot()) {
-                continue;
-            }
             // create message group
             Element messageGroup = document.createElement("div");
             messageGroup.addClass("chatlog__message-group");
