@@ -306,8 +306,7 @@ public class DiscordHtmlTranscripts {
 
         var referenceMessage = message.getReferencedMessage();
         User author = referenceMessage.getAuthor();
-        Member member = channel.getGuild().getMember(author);
-        var color = Formatter.toHex(Objects.requireNonNullElse(member.getColor(), Color.WHITE));
+        var color = Formatter.toHex(Color.WHITE);
 
         //        System.out.println("REFERENCE MSG " + referenceMessage.getContentDisplay());
         reference.html("<img class=\"chatlog__reference-avatar\" src=\""
