@@ -13,6 +13,7 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 
+import java.awt.*;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -306,7 +307,7 @@ public class DiscordHtmlTranscripts {
         var referenceMessage = message.getReferencedMessage();
         User author = referenceMessage.getAuthor();
         Member member = channel.getGuild().getMember(author);
-        var color = Formatter.toHex(Objects.requireNonNull(member.getColor()));
+        var color = Formatter.toHex(Objects.requireNonNullElse(member.getColor(), Color.WHITE));
 
         //        System.out.println("REFERENCE MSG " + referenceMessage.getContentDisplay());
         reference.html("<img class=\"chatlog__reference-avatar\" src=\""

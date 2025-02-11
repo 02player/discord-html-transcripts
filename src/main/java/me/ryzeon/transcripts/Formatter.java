@@ -80,9 +80,12 @@ public class Formatter {
         boolean findCode = false;
         while (matcher.find()) {
             String group = matcher.group();
+            String cleaned = group.replace("```", "");
+            if (cleaned.length() > 6) {
+                cleaned = cleaned.substring(3, cleaned.length() - 3);
+            }
             newText = newText.replace(group,
-                    "<div class=\"pre pre--multiline nohighlight\">"
-                            + group.replace("```", "").substring(3, -3) + "</div>");
+                    "<div class=\"pre pre--multiline nohighlight\">" + cleaned + "</div>");
             findCode = true;
         }
         if (!findCode) {
