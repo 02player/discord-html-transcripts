@@ -259,7 +259,7 @@ public class DiscordHtmlTranscripts {
     private void handleAudios(Message message,Document document, Message.Attachment attach, Element attachmentsDiv) {
         Element attachmentAudio = document.createElement("audio");
         attachmentAudio.addClass("chatlog__attachment-media");
-        attachmentAudio.attr("src", "http://51.38.132.46:8080/attachment?id="+message.getAuthor().getId()+"&name="+attach.getFileName());
+        attachmentAudio.attr("src", "http://51.38.132.46:8080/attachment?id="+message.getChannelId()+"&name="+attach.getFileName());
         attachmentAudio.attr("alt", "Audio attachment");
         attachmentAudio.attr("controls", true);
         attachmentAudio.attr("title",
@@ -271,7 +271,7 @@ public class DiscordHtmlTranscripts {
     private void handleVideos(Message message,Document document, Message.Attachment attach, Element attachmentsDiv) {
         Element attachmentVideo = document.createElement("video");
         attachmentVideo.addClass("chatlog__attachment-media");
-        attachmentVideo.attr("src", "http://51.38.132.46:8080/attachment?id="+message.getAuthor().getId()+"&name="+attach.getFileName());
+        attachmentVideo.attr("src", "http://51.38.132.46:8080/attachment?id="+message.getChannelId()+"&name="+attach.getFileName());
         attachmentVideo.attr("alt", "Video attachment");
         attachmentVideo.attr("controls", true);
         attachmentVideo.attr("title",
@@ -285,7 +285,7 @@ public class DiscordHtmlTranscripts {
 
         Element attachmentImage = document.createElement("img");
         attachmentImage.addClass("chatlog__attachment-media");
-        attachmentImage.attr("src", "http://51.38.132.46:8080/attachment?id="+message.getAuthor().getId()+"&name="+attach.getFileName());
+        attachmentImage.attr("src", "http://51.38.132.46:8080/attachment?id="+message.getChannelId()+"&name="+attach.getFileName());
         attachmentImage.attr("alt", "Image attachment");
         attachmentImage.attr("loading", "lazy");
         attachmentImage.attr("title",
