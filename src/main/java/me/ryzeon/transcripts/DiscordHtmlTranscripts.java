@@ -15,6 +15,7 @@ import org.jsoup.nodes.Element;
 
 import java.awt.*;
 import java.io.ByteArrayInputStream;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.time.format.DateTimeFormatter;
@@ -255,10 +256,10 @@ public class DiscordHtmlTranscripts {
         attachmentsDiv.appendChild(attachmentGeneric);
     }
 
-    private void handleAudios(Document document, Message.Attachment attach, Element attachmentsDiv) {
+    private void handleAudios(Message message,Document document, Message.Attachment attach, Element attachmentsDiv) {
         Element attachmentAudio = document.createElement("audio");
         attachmentAudio.addClass("chatlog__attachment-media");
-        attachmentAudio.attr("src", attach.getUrl());
+        attachmentAudio.attr("src", "http://51.38.132.46:8080/attachment?id="+message.getAuthor().getId()+"&name="+attach.getFileName());
         attachmentAudio.attr("alt", "Audio attachment");
         attachmentAudio.attr("controls", true);
         attachmentAudio.attr("title",
@@ -267,10 +268,10 @@ public class DiscordHtmlTranscripts {
         attachmentsDiv.appendChild(attachmentAudio);
     }
 
-    private void handleVideos(Document document, Message.Attachment attach, Element attachmentsDiv) {
+    private void handleVideos(Message message,Document document, Message.Attachment attach, Element attachmentsDiv) {
         Element attachmentVideo = document.createElement("video");
         attachmentVideo.addClass("chatlog__attachment-media");
-        attachmentVideo.attr("src", attach.getUrl());
+        attachmentVideo.attr("src", "http://51.38.132.46:8080/attachment?id="+message.getAuthor().getId()+"&name="+attach.getFileName());
         attachmentVideo.attr("alt", "Video attachment");
         attachmentVideo.attr("controls", true);
         attachmentVideo.attr("title",
@@ -279,12 +280,12 @@ public class DiscordHtmlTranscripts {
         attachmentsDiv.appendChild(attachmentVideo);
     }
 
-    private void handleImages(Document document, Message.Attachment attach, Element attachmentsDiv) {
+    private void handleImages(Message message,Document document, Message.Attachment attach, Element attachmentsDiv) {
         Element attachmentLink = document.createElement("a");
 
         Element attachmentImage = document.createElement("img");
         attachmentImage.addClass("chatlog__attachment-media");
-        attachmentImage.attr("src", attach.getUrl());
+        attachmentImage.attr("src", "http://51.38.132.46:8080/attachment?id="+message.getAuthor().getId()+"&name="+attach.getFileName());
         attachmentImage.attr("alt", "Image attachment");
         attachmentImage.attr("loading", "lazy");
         attachmentImage.attr("title",
@@ -329,10 +330,6 @@ public class DiscordHtmlTranscripts {
 
         messageGroup.appendChild(referenceSymbol);
         messageGroup.appendChild(reference);
-    }
-
-    public FileUpload createTranscript(GuildMessageChannel channel) throws IOException {
-        return createTranscript(channel, null);
     }
 
     public FileUpload createTranscript(GuildMessageChannel channel, String fileName) throws IOException {
@@ -448,11 +445,11 @@ public class DiscordHtmlTranscripts {
 
                     var attachmentType = attach.getFileExtension();
                     if (imageFormats.isFormat(attachmentType)) {
-                        handleImages(document, attach, attachmentsDiv);
+                        handleImages(message,document, attach, attachmentsDiv);
                     } else if (videoFormats.isFormat(attachmentType)) {
-                        handleVideos(document, attach, attachmentsDiv);
+                        handleVideos(message,document, attach, attachmentsDiv);
                     } else if (audioFormats.isFormat(attachmentType)) {
-                        handleAudios(document, attach, attachmentsDiv);
+                        handleAudios(message,document, attach, attachmentsDiv);
                     } else {
                         handleUnknownAttachmentTypes(document, attach, attachmentsDiv);
                     }
